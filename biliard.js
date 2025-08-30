@@ -1,3 +1,4 @@
+console.log('[Biliard] boot OK');   // <- adaugă asta pe prima linie
 // biliard.js (entry) – leagă fizica, regulile, AI, audio și UI
 import { Physics } from './modules/physics.js';
 import { Rules8Ball } from './modules/rules.js';

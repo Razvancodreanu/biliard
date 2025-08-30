@@ -49,6 +49,21 @@
 
     <!-- ES Modules -->
     <script type="module" src="biliard.js"></script>
+    <script>
+        // Afișează orice eroare direct în HUD (lângă hint)
+        window.addEventListener('error', e => {
+            const el = document.getElementById('hint');
+            if (el) el.innerHTML = '⚠️ Eroare: ' + (e.message || e.error || e.filename || 'necunoscut');
+            console.error('[PAGE ERROR]', e);
+        });
+        window.addEventListener('unhandledrejection', e => {
+            const el = document.getElementById('hint');
+            if (el) el.innerHTML = '⚠️ Promise error: ' + (e.reason && (e.reason.message || e.reason));
+            console.error('[UNHANDLED REJECTION]', e);
+        });
+    </script>
+    <script type="module" src="biliard.js"></script>
+
 </body>
 
 </html>
