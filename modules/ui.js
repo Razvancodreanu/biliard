@@ -35,25 +35,28 @@ export class UI {
         };
     }
 
-    // ---- handlers brute (doar pasează mai departe + marchează apăsat/ridicat)
+    // ---- handlers brute
     _down(e) {
-        this.pointerDown = true;
+        this.pointerDown = true; // marchează mouse apăsat
         const m = this.getMouse(e);
         if (this.onPointerDown) this.onPointerDown(m);
     }
+
     _move(e) {
         const m = this.getMouse(e);
         if (this.onPointerDrag) this.onPointerDrag(m);
     }
+
     _up(e) {
         const m = this.getMouse(e);
         if (this.onPointerUp) this.onPointerUp(m);
-        this.pointerDown = false;
+        this.pointerDown = false; // marchează mouse ridicat
     }
 
     // ---- logica de țintire (chemată de Rules prin callback-uri)
     startAim(m, p) {
-        const cue = p.balls.find(b => b.isCue); if (!cue || !cue.alive) return;
+        const cue = p.balls.find(b => b.isCue);
+        if (!cue || !cue.alive) return;
         const MAX_DIST = p.R * 3.0; // mai iertător ca să „prinzi” bila albă
         if (Math.hypot(m.x - cue.x, m.y - cue.y) <= MAX_DIST) {
             this.aiming = true;
@@ -77,7 +80,9 @@ export class UI {
         const dx = m.x - this.aimStart.x, dy = m.y - this.aimStart.y;
         this.aiming = false;
         const power = this.power;
-        this.power = 0; this.aimStart = null; this.aimMouse = null;
+        this.power = 0;
+        this.aimStart = null;
+        this.aimMouse = null;
         if (Math.hypot(dx, dy) < 3) return { fired: false };
         p.strikeCue(dx, dy, power);
         return { fired: true };
@@ -112,8 +117,11 @@ export class UI {
                 if (!b.alive || b.isCue || b.number === 8) continue;
                 const g = b.stripe ? 'stripes' : 'solids';
                 if (g === rules.legalTarget) {
-                    ctx.beginPath(); ctx.arc(b.x, b.y, p.R + 4, 0, Math.PI * 2);
-                    ctx.strokeStyle = 'rgba(255,255,255,0.22)'; ctx.lineWidth = 2; ctx.stroke();
+                    ctx.beginPath();
+                    ctx.arc(b.x, b.y, p.R + 4, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
                 }
             }
         }
@@ -121,14 +129,22 @@ export class UI {
         // bile
         for (const b of p.balls) {
             if (!b.alive) continue;
-            ctx.fillStyle = b.color; circle(ctx, b.x, b.y, p.R);
+            ctx.fillStyle = b.color;
+            circle(ctx, b.x, b.y, p.R);
             if (!b.isCue) {
                 if (b.stripe) {
-                    ctx.save(); ctx.beginPath(); ctx.rect(b.x - p.R, b.y - p.R / 2, p.R * 2, p.R); ctx.clip();
-                    ctx.fillStyle = '#eee'; circle(ctx, b.x, b.y, p.R);
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(b.x - p.R, b.y - p.R / 2, p.R * 2, p.R);
+                    ctx.clip();
+                    ctx.fillStyle = '#eee';
+                    circle(ctx, b.x, b.y, p.R);
                     ctx.restore();
                 }
-                ctx.fillStyle = '#111'; ctx.font = 'bold 10px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillStyle = '#111';
+                ctx.font = 'bold 10px system-ui';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
                 ctx.fillText(String(b.number), b.x, b.y);
             }
         }
@@ -142,9 +158,12 @@ export class UI {
 
             // power bar
             const pw = 120, ph = 8, px = PLAY.x + PLAY.w - pw - 12, py = PLAY.y + 12;
-            ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.fillRect(px, py, pw, ph);
-            ctx.fillStyle = '#d9f99d'; ctx.fillRect(px, py, pw * this.power, ph);
-            ctx.strokeStyle = 'rgba(255,255,255,.25)'; ctx.strokeRect(px, py, pw, ph);
+            ctx.fillStyle = 'rgba(255,255,255,.15)';
+            ctx.fillRect(px, py, pw, ph);
+            ctx.fillStyle = '#d9f99d';
+            ctx.fillRect(px, py, pw * this.power, ph);
+            ctx.strokeStyle = 'rgba(255,255,255,.25)';
+            ctx.strokeRect(px, py, pw, ph);
         }
     }
 
@@ -160,7 +179,12 @@ export class UI {
 function circle(ctx, x, y, r) { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); }
 function roundRect(ctx, x, y, w, h, r, fill) {
     ctx.beginPath();
-    ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
-    ctx.fillStyle = fill; ctx.fill();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+    ctx.fillStyle = fill;
+    ctx.fill();
 }
