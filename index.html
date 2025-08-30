@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Biliard · Razvan Codreanu</title>
+    <link rel="stylesheet" href="biliard.css" />
+</head>
+
+<body>
+    <main class="app">
+        <header class="topbar">
+            <h1>Biliard</h1>
+            <nav class="actions">
+                <a class="btn" href="index.html">← Joc X și 0</a>
+                <button id="resetBtn" class="btn">Rearanjează bilele</button>
+            </nav>
+        </header>
+
+        <section class="hud">
+            <div>Lovituri: <strong id="shots">0</strong></div>
+            <div>Bile rămase (fără bila albă): <strong id="left">0</strong></div>
+            <div id="hint" class="muted">Trage cu mouse-ul din bila albă pentru a lovi.</div>
+        </section>
+
+        <div class="table-wrapper">
+            <!-- Canvas-ul se scalează retina-aware în JS -->
+            <canvas id="table" width="960" height="520" aria-label="Masă de biliard"></canvas>
+        </div>
+
+        <footer class="footer">
+            <small>© 2025 Razvan Codreanu · Fizică simplificată, 6 buzunare, mod antrenament.</small>
+        </footer>
+    </main>
+
+    <script src="biliard.js" defer></script>
+</body>
+
+</html>
