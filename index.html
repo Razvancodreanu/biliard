@@ -1,42 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Biliard · Razvan Codreanu</title>
+    <title>8-Ball · Razvan Codreanu</title>
     <link rel="stylesheet" href="biliard.css" />
+    <meta name="description"
+        content="Biliard 8-Ball (WPA). 2 jucători sau vs. AI (Easy/Medium/Hard). Sunete & reguli corecte." />
 </head>
 
 <body>
     <main class="app">
         <header class="topbar">
-            <h1>Biliard</h1>
+            <h1>8-Ball</h1>
             <nav class="actions">
-                <a class="btn" href="index.html">← Joc X și 0</a>
-                <button id="resetBtn" class="btn">Rearanjează bilele</button>
-                <a class="btn" href="https://razvancodreanu.github.io/biliard/" style="margin-left:8px">🎱 Biliard</a>
-
+                <a class="btn" href="https://razvancodreanu.github.io/joc-x-si-0/">← Joc X și 0</a>
+                <label class="control">Mod:
+                    <select id="mode">
+                        <option value="2p">2 jucători (local)</option>
+                        <option value="ai-easy">Vs. AI — Easy</option>
+                        <option value="ai-medium">Vs. AI — Medium</option>
+                        <option value="ai-hard">Vs. AI — Hard</option>
+                    </select>
+                </label>
+                <button id="rematch" class="btn">Revanșă</button>
+                <button id="reset" class="btn btn-ghost">Reset rack</button>
             </nav>
         </header>
 
         <section class="hud">
+            <div>Tură: <strong id="turn">Jucător 1</strong></div>
+            <div>Grupe: <strong id="groups">Open table</strong></div>
             <div>Lovituri: <strong id="shots">0</strong></div>
-            <div>Bile rămase (fără bila albă): <strong id="left">0</strong></div>
-            <div id="hint" class="muted">Trage cu mouse-ul din bila albă pentru a lovi.</div>
+            <div>Faulturi: <strong id="fouls">—</strong></div>
+            <div class="muted" id="hint">Țintește din bila albă: click & drag. Ball-in-hand: trage bila albă.</div>
         </section>
 
-        <div class="table-wrapper">
-            <!-- Canvas-ul se scalează retina-aware în JS -->
+        <div class="table-wrap">
             <canvas id="table" width="960" height="520" aria-label="Masă de biliard"></canvas>
         </div>
 
         <footer class="footer">
-            <small>© 2025 Razvan Codreanu · Fizică simplificată, 6 buzunare, mod antrenament.</small>
+            <small>© 2025 Razvan Codreanu · Reguli WPA, fizică 2D, AI (3 niveluri). Sunete: pune fișierele în
+                <code>assets/sfx/</code>.</small>
         </footer>
     </main>
 
-    <script src="biliard.js" defer></script>
+    <!-- ES Modules -->
+    <script type="module" src="biliard.js"></script>
 </body>
 
 </html>
