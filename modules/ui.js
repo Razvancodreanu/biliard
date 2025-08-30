@@ -11,18 +11,24 @@ export class UI {
     }
     getMouse(e) {
         const r = this.canvas.getBoundingClientRect();
-        return { x: e.clientX - r.left, y: e.clientY - r.top };
+        const scaleX = this.canvas.width / r.width;
+        const scaleY = this.canvas.height / r.height;
+        return {
+            x: (e.clientX - r.left) * scaleX,
+            y: (e.clientY - r.top) * scaleY
+        };
     }
-    _down(e) { const m = this.getMouse(e); this.onPointerDown && this.onPointerDown(m); }
-    _move(e) { const m = this.getMouse(e); this.onPointerDrag && this.onPointerDrag(m); }
-    _up(e) { const m = this.getMouse(e); this.onPointerUp && this.onPointerUp(m); }
+
 
     startAim(m, p) {
         const cue = p.balls.find(b => b.isCue); if (!cue || !cue.alive) return;
-        if (dist(m.x, m.y, cue.x, cue.y) <= p.R * 1.9) {
+        const MAX_DIST = p.R * 3.0; // era prea mică; acum e mai ușor de “prins” bila
+        if (Math.hypot(m.x - cue.x, m.y - cue.y) <= MAX_DIST) {
             this.aiming = true; this.aimStart = { x: cue.x, y: cue.y }; this.aimMouse = m; this.power = 0;
         }
     }
+
+
     updateAim(m) {
         if (!this.aiming) return; this.aimMouse = m;
         const dx = m.x - this.aimStart.x, dy = m.y - this.aimStart.y;
