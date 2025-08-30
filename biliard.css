@@ -133,3 +133,12 @@ canvas {
 .bad {
     color: var(--warn)
 }
+
+canvas#table {
+    cursor: crosshair;
+}
+
+/* Cursor crosshair când ești pe masa de biliard */
+canvas#table {
+    cursor: crosshair;
+}
