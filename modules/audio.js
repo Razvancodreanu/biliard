@@ -8,6 +8,9 @@ export class AudioBus {
         // preaload „lazy” la prima interacțiune user
         window.addEventListener('pointerdown', () => this.ensureCtx(), { once: true });
         this.preload();
+        // în constructorul AudioBus (după pointerdown-ul existent):
+        window.addEventListener('touchstart', () => this.ensureCtx(), { once: true });
+
     }
     ensureCtx() { if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
     async preload() {

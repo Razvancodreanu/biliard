@@ -142,3 +142,8 @@ canvas#table {
 canvas#table {
     cursor: crosshair;
 }
+
+/* Oprește scroll/pinch pe canvas – dublat cu JS */
+canvas#table {
+    touch-action: none;
+}
